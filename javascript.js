@@ -23,10 +23,23 @@ function createGrid(size) {
         cell.style.height = `${cellSize}px`;
         cell.style.border = "1px solid lightgray";
         cell.style.boxSizing = "border-box";
+        
+        // Initialize opacity tracking
+        let interactionCount = 0;
 
-        // Add hover effect with a random color
+        // Add hover effect with progressive darkening
         cell.addEventListener("mouseover", () => {
-            cell.style.backgroundColor = getRandomColor(); // Change to random RGB color
+            if (interactionCount < 10) {
+                interactionCount++;
+                const newOpacity = interactionCount * 0.1;
+                
+                // Set random color on first interaction
+                if (interactionCount === 1) {
+                    cell.style.backgroundColor = getRandomColor();
+                }
+                
+                cell.style.opacity = newOpacity;
+            }
         });
 
         container.appendChild(cell);
